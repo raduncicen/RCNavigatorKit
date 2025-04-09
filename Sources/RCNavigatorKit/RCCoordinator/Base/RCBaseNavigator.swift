@@ -7,25 +7,25 @@
 
 import UIKit
 
-public class RCBaseNavigator<Route>: RCNavigator {
-    let navigationController: UINavigationController
+open class RCBaseNavigator<Route>: RCNavigator {
+    public let navigationController: UINavigationController
     public var childCoordinators: [RCCoordinator] = []
 
     private var coordinatorIdentifiers: [(navigationPath: RCNavigationPath<Route>, id:String)] = []
 
-    var currentPaths: [RCNavigationPath<Route>] {
+    public var currentPaths: [RCNavigationPath<Route>] {
         coordinatorIdentifiers.map(\.navigationPath)
     }
 
-    init(navigationController: UINavigationController) {
+    public init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
 
-    public func navigate(to path: RCNavigationPath<Route>) {
+    open func navigate(to path: RCNavigationPath<Route>) {
         assertionFailure("You should implement this")
     }
 
-    public func popUntil(_ path: RCNavigationPath<Route>) {
+    open func popUntil(_ path: RCNavigationPath<Route>) {
         assertionFailure("You should implement this")
 //        guard let coordinatorIndex = coordinatorIdentifiers.lastIndex(where: { $0.navigationPath == path }) else { return }
 //        let coordinatorId = coordinatorIdentifiers[coordinatorIndex].id
@@ -33,7 +33,7 @@ public class RCBaseNavigator<Route>: RCNavigator {
     }
 
     public func setDelegateIfAvailable(_ coordinator: RCCoordinator) {
-        guard let currentCoordinator = childCoordinators.last as? RCDataDelegate else { return }
+        guard let currentCoordinator = childCoordinators.last as? RCCoordinatorDelegate else { return }
         coordinator.delegate = currentCoordinator
     }
 }

@@ -6,10 +6,10 @@
 //
 import UIKit
 
-public class RCBaseCoordinator<Route, DataDelegate>: RCCoordinator {
+open class RCBaseCoordinator<Route, DataDelegate>: RCCoordinator {
     public let navigationController: UINavigationController
     public var _navigator: any RCNavigator
-    var navigator: AnyNavigator<Route>
+    public var navigator: AnyNavigator<Route>
 
     weak private var weakDelegate: AnyObject?
 
@@ -18,8 +18,8 @@ public class RCBaseCoordinator<Route, DataDelegate>: RCCoordinator {
         set { weakDelegate = newValue as? AnyObject }
     }
 
-    public var delegate: (any RCDataDelegate)? {
-        get { weakDelegate as? RCDataDelegate }
+    public var delegate: (any RCCoordinatorDelegate)? {
+        get { weakDelegate as? RCCoordinatorDelegate }
         set {
             guard newValue != nil else {
                 weakDelegate = nil
@@ -32,7 +32,7 @@ public class RCBaseCoordinator<Route, DataDelegate>: RCCoordinator {
         }
     }
 
-    required init(
+    required public init(
         navigationController: UINavigationController,
         navigator: AnyNavigator<Route>
     ) {

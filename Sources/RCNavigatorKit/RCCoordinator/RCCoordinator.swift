@@ -17,7 +17,7 @@ public enum RCCoordinatorRootPresentationStyle {
 public protocol RCCoordinator: AnyObject {
     var navigationController: UINavigationController { get }
     var _navigator: any RCNavigator { get }
-    var delegate: RCDataDelegate? { get set }
+    var delegate: RCCoordinatorDelegate? { get set }
 }
 
 // MARK: - NAVIGATION EXTENSIONS
